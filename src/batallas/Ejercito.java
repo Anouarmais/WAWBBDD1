@@ -17,10 +17,17 @@ import excepciones.personas.MaxCapGeneralException;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+
+import static sun.util.locale.provider.LocaleProviderAdapter.Type.HOST;
 
 /**
  * <p>Clase que representa un ejército.</p>
@@ -72,11 +79,12 @@ public class Ejercito {
         return saldoPeso;
     }
 
+
     private void menu() {
         Scanner scanner = new Scanner(System.in);
         String opcion;
 
-        String[] opciones = {"Cargar generales en la Base de Datos", "Crear ID para ejército", "Añadir infantería",
+        String[] opciones = {"Cargar generales en la base de datos", "Crear ID para ejército", "Añadir infantería",
                 "Añadir caballería", "Añadir general", "Añadir elefante", "Añadir tigre",
                 "Consultar saldo ejército", "Eliminar unidad", "Salir y confirmar"};
 
@@ -91,6 +99,7 @@ public class Ejercito {
 
             switch (opcion) {
                 case "a":
+                    System.out.println("Selecciona el fichero Generales.txt que esta en la carpeta del proyecto.");
                     JFileChooser fileChooser = new JFileChooser();
 
                     fileChooser.setSelectedFile(new File(""));
@@ -98,6 +107,51 @@ public class Ejercito {
                     fileChooser.setDialogTitle("Selecciona un fichero");
 
                     int resultado = fileChooser.showOpenDialog(null);
+
+                    if (resultado == JFileChooser.APPROVE_OPTION) {
+                        File archivoSeleccionado = fileChooser.getSelectedFile();
+                        System.out.println("Archivo seleccionado: " + archivoSeleccionado);
+
+                        ArrayList<General> arraygenerales = new ArrayList<>();
+                        try (Scanner scanner1 = new Scanner(archivoSeleccionado)) {
+                            while (scanner1.hasNextLine()) {
+                                String linea = scanner1.nextLine();
+                                String[] nombres = linea.split(",");
+                                for (String nombre : nombres) {
+                                    General generalCreado = new General();
+                                    generalCreado.setNombre(nombre.trim());
+                                    arraygenerales.add(generalCreado);
+                                    //System.out.println(generalCreado); para  imprimilos
+                                }
+                            }
+
+
+
+                            /***  Saber la info de uno en Especifico*/
+
+                          /*  General primerGeneral = arraygenerales.get(1);
+                            String nombrePrimerGeneral = primerGeneral.getNombre();
+                            System.out.println("Nombre del  General: " + nombrePrimerGeneral);*/
+
+
+
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                            throw new RuntimeException(e);
+                        }
+                        /***  Iterar el array general  e inprime la info de todos */
+                     /*   for(General general : arraygenerales){
+                            System.out.println("Nombre: " + general.getNombre());
+                            System.out.println("Ataque: " + general.getAtaque());
+                            System.out.println("Defensa: " + general.getDefensa());
+                            System.out.println("Salud: " + general.getSalud());
+
+                        }*/
+
+
+                    } else {
+                        System.out.println("No se seleccionó ningún archivo");
+                    }
 
 
                     break;
