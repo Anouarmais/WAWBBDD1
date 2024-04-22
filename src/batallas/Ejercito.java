@@ -4,6 +4,7 @@
  */
 package batallas;
 
+import BBDD.CargarDatosBBDD;
 import componentes.Componentes;
 import componentes.animales.Elefante;
 import componentes.animales.Tigre;
@@ -27,7 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-import static sun.util.locale.provider.LocaleProviderAdapter.Type.HOST;
+import static medac_programacionbatalla.MEDAC_ProgramacionBatalla.conectarBD;
 
 /**
  * <p>Clase que representa un ejército.</p>
@@ -37,6 +38,7 @@ import static sun.util.locale.provider.LocaleProviderAdapter.Type.HOST;
  * @version 1.0
  */
 public class Ejercito {
+    Connection conectar = conectarBD();
 
     private static final int MAX_PESO = 50;
     private static final int MAX_ANIMALES = 3;
@@ -50,6 +52,7 @@ public class Ejercito {
     private int salud;
     private int saldoPeso;
     private String nombre;
+
 
     public Ejercito() {
 
@@ -99,6 +102,7 @@ public class Ejercito {
 
             switch (opcion) {
                 case "a":
+
                     System.out.println("Selecciona el fichero Generales.txt que esta en la carpeta del proyecto.");
                     JFileChooser fileChooser = new JFileChooser();
 
@@ -121,34 +125,18 @@ public class Ejercito {
                                     General generalCreado = new General();
                                     generalCreado.setNombre(nombre.trim());
                                     arraygenerales.add(generalCreado);
-                                    //System.out.println(generalCreado); para  imprimilos
+                                    System.out.println(generalCreado); //para  imprimilos
                                 }
                             }
 
-
-
-                            /***  Saber la info de uno en Especifico*/
-
-                          /*  General primerGeneral = arraygenerales.get(1);
-                            String nombrePrimerGeneral = primerGeneral.getNombre();
-                            System.out.println("Nombre del  General: " + nombrePrimerGeneral);*/
-
+                            CargarDatosBBDD cargador = new CargarDatosBBDD();
+                            cargador.cargarGenerales(arraygenerales);
 
 
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                             throw new RuntimeException(e);
                         }
-                        /***  Iterar el array general  e inprime la info de todos */
-                     /*   for(General general : arraygenerales){
-                            System.out.println("Nombre: " + general.getNombre());
-                            System.out.println("Ataque: " + general.getAtaque());
-                            System.out.println("Defensa: " + general.getDefensa());
-                            System.out.println("Salud: " + general.getSalud());
-
-                        }*/
-
-
                     } else {
                         System.out.println("No se seleccionó ningún archivo");
                     }

@@ -4,6 +4,7 @@
  */
 package medac_programacionbatalla;
 
+import BBDD.CargarDatosBBDD;
 import batallas.Batalla;
 
 import javax.swing.*;
@@ -19,10 +20,8 @@ import java.util.TimeZone;
 public class MEDAC_ProgramacionBatalla {
 
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+
+    public static Connection conectarBD() {
         String bd = "waw";
         String USUARIOS = "root";
         String pass = "";
@@ -31,40 +30,32 @@ public class MEDAC_ProgramacionBatalla {
         boolean connectOk = true;
         Connection connection = null;
 
-
         try {
-
             Calendar now = Calendar.getInstance();
-            TimeZone zonahoraria =now.getTimeZone();
-            //System.out.println("jkhkhkj"+Class.forName("com.mysql.cj.jdbc.Driver"));
+            TimeZone zonahoraria = now.getTimeZone();
             Class.forName("com.mysql.cj.jdbc.Driver");
-
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://" + host + ":" + port +"/" + bd, USUARIOS , pass);
-
+                    "jdbc:mysql://" + host + ":" + port + "/" + bd, USUARIOS, pass);
             connectOk = true;
             System.out.println(connectOk);
-
-        } catch (SQLException | ClassNotFoundException  e ) {
-            // } catch (SQLException  e ) {
+        } catch (SQLException | ClassNotFoundException e) {
             connectOk = false;
-
-
             System.out.println(e.getMessage());
-
-
-
             System.out.println(connectOk);
-            if(connectOk == false){
-
-                JOptionPane.showMessageDialog(null , "La coneccion no existe comprueva que existe la tabla");
+            if (!connectOk) {
+                JOptionPane.showMessageDialog(null, "La conexión no existe, comprueba que existe la tabla");
             }
-
         }
+        return connection;
+    }
+    public static void main(String[] args) {
+        Connection connection = conectarBD();
+        if (connection != null) {
+            Batalla batalla = new Batalla();
 
-//        String test = ExploradorFicheros.leerFichero();
-        Batalla batalla = new Batalla();
-
+        } else {
+            System.out.println("no se conecta");
+        }
     }
 }
     
