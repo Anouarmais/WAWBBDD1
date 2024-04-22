@@ -15,6 +15,8 @@ import excepciones.batallas.*;
 import excepciones.personas.GeneralMinimoException;
 import excepciones.personas.MaxCapGeneralException;
 
+import javax.swing.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -74,7 +76,7 @@ public class Ejercito {
         Scanner scanner = new Scanner(System.in);
         String opcion;
 
-        String[] opciones = {"Crear ID para ejército", "Añadir infantería",
+        String[] opciones = {"Cargar generales en la Base de Datos", "Crear ID para ejército", "Añadir infantería",
                 "Añadir caballería", "Añadir general", "Añadir elefante", "Añadir tigre",
                 "Consultar saldo ejército", "Eliminar unidad", "Salir y confirmar"};
 
@@ -89,6 +91,17 @@ public class Ejercito {
 
             switch (opcion) {
                 case "a":
+                    JFileChooser fileChooser = new JFileChooser();
+
+                    fileChooser.setSelectedFile(new File(""));
+
+                    fileChooser.setDialogTitle("Selecciona un fichero");
+
+                    int resultado = fileChooser.showOpenDialog(null);
+
+
+                    break;
+                case "b":
                     if (nombre.isBlank() || nombre.isEmpty()) {
                         System.out.print(System.lineSeparator() + "Asignale un nombre a tu ejército: ");
 
@@ -102,7 +115,7 @@ public class Ejercito {
                     }
 
                     break;
-                case "b":
+                case "c":
 
                     try {
                         if ((saldoPeso + Infanteria.PESO_INFANTERIA) < MAX_PESO) {
@@ -122,7 +135,7 @@ public class Ejercito {
                     }
 
                     break;
-                case "c":
+                case "d":
 
                     try {
                         if ((saldoPeso + Caballeria.PESO_CABALLERIA) < MAX_PESO) {
@@ -142,7 +155,7 @@ public class Ejercito {
                     }
 
                     break;
-                case "d":
+                case "e":
                     try {
                         if (((saldoPeso + General.PESO_GENERAL) < MAX_PESO) && !hayGeneral) {
                             adicionarUnidad(new General());
@@ -159,7 +172,7 @@ public class Ejercito {
                     }
 
                     break;
-                case "e":
+                case "f":
                     try {
                         if (((saldoPeso + Elefante.PESO_ELEFANTE) < MAX_PESO) && contadorAnimales < MAX_ANIMALES) {
                             adicionarUnidad(new Elefante());
@@ -181,7 +194,7 @@ public class Ejercito {
                     }
 
                     break;
-                case "f":
+                case "g":
                     try {
                         if ((saldoPeso + Tigre.PESO_TIGRE) < MAX_PESO && contadorAnimales < MAX_ANIMALES) {
                             adicionarUnidad(new Tigre());
@@ -201,10 +214,10 @@ public class Ejercito {
                     }
 
                     break;
-                case "g":
+                case "h":
                     System.out.println(Message.SALDO_ACTUAL + getSaldoPeso());
                     break;
-                case "h":
+                case "i":
                     try {
                         if (!unidades.isEmpty()) {
                             System.out.println("Eliminar unidad del ejército: ");
@@ -222,7 +235,7 @@ public class Ejercito {
                     }
 
                     break;
-                case "i":
+                case "j":
                     try {
                         if (saldoPeso >= MIN_UNIDADES && hayGeneral) {
                             System.out.println(System.lineSeparator() + "Su Ejército está formado por: "
