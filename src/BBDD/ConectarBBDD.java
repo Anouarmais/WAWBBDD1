@@ -16,7 +16,7 @@ public class ConectarBBDD {
         String port = "3306";
         boolean connectOk = true;
         Connection connection = null;
-
+        System.out.println(" ");
         try {
             Calendar now = Calendar.getInstance();
             TimeZone zonahoraria = now.getTimeZone();
