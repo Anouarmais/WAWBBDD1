@@ -5,6 +5,7 @@
 package batallas;
 
 import BBDD.CargarDatosBBDD;
+import BBDD.TraerDatosBBDD;
 import componentes.Componentes;
 import componentes.animales.Elefante;
 import componentes.animales.Tigre;
@@ -20,15 +21,10 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-import static medac_programacionbatalla.MEDAC_ProgramacionBatalla.conectarBD;
+import static BBDD.ConectarBBDD.conectarBD;
+
 
 /**
  * <p>Clase que representa un ejército.</p>
@@ -125,11 +121,11 @@ public class Ejercito {
                                     General generalCreado = new General();
                                     generalCreado.setNombre(nombre.trim());
                                     arraygenerales.add(generalCreado);
-                                    System.out.println(generalCreado); //para  imprimilos
+
                                 }
                             }
 
-                            CargarDatosBBDD cargador = new CargarDatosBBDD();
+                            CargarDatosBBDD cargador = new CargarDatosBBDD(conectarBD());
                             cargador.cargarGenerales(arraygenerales);
 
 
@@ -198,10 +194,20 @@ public class Ejercito {
 
                     break;
                 case "e":
+                    CargarDatosBBDD cargador = new CargarDatosBBDD(conectarBD());
+                    List<General> generalesList = TraerDatosBBDD.obtenerGenerales();
+                    for (General general : generalesList) {
+                        ;}
                     try {
+
                         if (((saldoPeso + General.PESO_GENERAL) < MAX_PESO) && !hayGeneral) {
-                            adicionarUnidad(new General());
+                            Random random = new Random();
+                            int indiceAleatorio = random.nextInt(generalesList.size());
+                            General generalaleatorio = generalesList.get(indiceAleatorio);
+
+                            adicionarUnidad(generalaleatorio);
                             imprimirInfo(unidades.getLast());
+
                         } else {
                             if (saldoPeso == MAX_PESO) {
                                 throw new MaxCapPesoEjercitoException(Message.MAX_CAP_PESO_EJERCITO);
@@ -309,7 +315,7 @@ public class Ejercito {
                     System.out.println(Message.OPCION_INAVLIDA);
                     break;
             }
-        } while (!opcion.equals("i"));
+        } while (!opcion.equals("j"));
     }
 
     private void imprimirInfo(Componentes componente) {
