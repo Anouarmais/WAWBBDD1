@@ -30,7 +30,7 @@ public class MEDAC_ProgramacionBatalla {
             Batalla batalla = new Batalla();
 
         } else {
-            System.out.println("no se conecta");
+            System.out.println("No se ha conectado a  la Base de datos .");
         }
 
 

@@ -79,6 +79,21 @@ public class Ejercito {
     }
 
 
+    @Override
+    public String toString() {
+        return "Ejercito{" +
+                "conectar=" + conectar +
+                ", unidades=" + unidades +
+                ", contadorAnimales=" + contadorAnimales +
+                ", hayGeneral=" + hayGeneral +
+                ", ataque=" + ataque +
+                ", defensa=" + defensa +
+                ", salud=" + salud +
+                ", saldoPeso=" + saldoPeso +
+                ", nombre='" + nombre + '\'' +
+                '}';
+    }
+
     private void menu() {
         Scanner scanner = new Scanner(System.in);
         String opcion;
@@ -417,5 +432,13 @@ public class Ejercito {
         } catch (NombreExistenteException e) {
             System.out.println(e.getMessage());
         }
+    }
+    public General obtenerGeneral() {
+        for (Componentes unidad : unidades) {
+            if (unidad instanceof General) {
+                return (General) unidad;
+            }
+        }
+        return null;
     }
 }

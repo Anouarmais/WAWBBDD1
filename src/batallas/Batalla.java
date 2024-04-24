@@ -4,8 +4,17 @@
  */
 package batallas;
 
+import BBDD.CargarDatosBBDD;
+import componentes.Componentes;
+import componentes.personas.General;
+import BBDD.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Random;
+
+import static BBDD.ConectarBBDD.conectarBD;
 
 /**
  * <p>Clase que representa una batalla entre dos ejércitos.</p>
@@ -15,6 +24,7 @@ import java.util.Random;
  * @version 1.0
  */
 public class Batalla {
+    LinkedList<String[]> guardarGanadores = new LinkedList<>();
     private static final int MAX_RONDAS = 5;
     private final Ejercito ejercito1;
     private final Ejercito ejercito2;
@@ -30,6 +40,9 @@ public class Batalla {
         rondas = new ArrayList<>();
         luchar();
     }
+
+
+
 
     private void luchar() {
         System.out.println(Message.BATALLA_INICIO + ejercito1.getNombre() + " vs " + ejercito2.getNombre() + "!");
@@ -57,12 +70,29 @@ public class Batalla {
                 }
 
                 if (chequearGanador()) {
+                    Ejercito ganador = getGanador();
+                    LocalDate fecha = LocalDate.now();
+                    General generalGanador = ganador.obtenerGeneral();
+                    String[] registrarGanador = { generalGanador.getNombre() ,  ganador.getNombre() , fecha.toString()};
+                    guardarGanadores.add(registrarGanador);
+                  /*  System.out.println("Lista de ganadores:");
+                    for (String[] registro : guardarGanadores) {
+                        System.out.println(Arrays.toString(registro));
+                    }*/
                     if (getGanador() == ejercito1) {
                         System.out.println(System.lineSeparator() + Message.EJERCITO_GANADOR +
                                 ejercito1.getNombre());
+                        System.out.println("El general del ejército " + ejercito1.getNombre() + " es: " + generalGanador.getNombre());
+                        System.out.println("En el  dia " + fecha.toString());
+                        CargarScore subirScore = new CargarScore(conectarBD());
+                        subirScore.cargarTopScore(guardarGanadores);
                     } else {
                         System.out.println(System.lineSeparator() + Message.EJERCITO_GANADOR +
                                 ejercito2.getNombre());
+                        System.out.println("El general del ejército " + ejercito2.getNombre() + " es: " + generalGanador.getNombre());
+                        CargarScore subirScore = new CargarScore(conectarBD());
+                        subirScore.cargarTopScore(guardarGanadores);
+
                     }
 
                     break;
