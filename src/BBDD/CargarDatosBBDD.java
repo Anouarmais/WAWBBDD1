@@ -1,6 +1,6 @@
 package BBDD;
 
-import componentes.personas.General; // Asumiendo que este import es correcto y apunta a la clase General en el paquete correcto.
+import componentes.personas.General;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

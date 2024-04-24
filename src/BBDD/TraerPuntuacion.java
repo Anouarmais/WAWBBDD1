@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-import static BBDD.ConectarBBDD.conectarBD; // Importación de un método estático desde otra clase.
+import static BBDD.ConectarBBDD.conectarBD;
 
 public class TraerPuntuacion {
     private static Connection connection = conectarBD(); // Establecer una conexión a la base de datos al inicializar la clase.

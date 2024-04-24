@@ -6,8 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate; // Importación de LocalDate, que se utiliza para manejar fechas.
-import java.util.ArrayList; // Importaciones de Listas que no parecen utilizadas.
-import java.util.LinkedList; // Importaciones de Listas que no parecen utilizadas.
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static BBDD.ConectarBBDD.conectarBD; // Importación de un método estático desde otra clase.
