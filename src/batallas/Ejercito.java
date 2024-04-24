@@ -6,6 +6,7 @@ package batallas;
 
 import BBDD.CargarDatosBBDD;
 import BBDD.TraerDatosBBDD;
+import BBDD.TraerPuntuacion;
 import componentes.Componentes;
 import componentes.animales.Elefante;
 import componentes.animales.Tigre;
@@ -100,7 +101,7 @@ public class Ejercito {
 
         String[] opciones = {"Cargar generales en la base de datos", "Crear ID para ejército", "Añadir infantería",
                 "Añadir caballería", "Añadir general", "Añadir elefante", "Añadir tigre",
-                "Consultar saldo ejército", "Eliminar unidad", "Salir y confirmar"};
+                "Consultar saldo ejército", "Eliminar unidad","topscore", "Salir y confirmar"};
 
         do {
 
@@ -299,6 +300,12 @@ public class Ejercito {
 
                     break;
                 case "j":
+                    TraerPuntuacion traerPuntuacion = new TraerPuntuacion();
+                    traerPuntuacion.obtenerPuntuaciones();
+
+
+                    break;
+                case "k":
                     try {
                         if (saldoPeso >= MIN_UNIDADES && hayGeneral) {
                             System.out.println(System.lineSeparator() + "Su Ejército está formado por: "
@@ -330,7 +337,7 @@ public class Ejercito {
                     System.out.println(Message.OPCION_INAVLIDA);
                     break;
             }
-        } while (!opcion.equals("j"));
+        } while (!opcion.equals("k"));
     }
 
     private void imprimirInfo(Componentes componente) {

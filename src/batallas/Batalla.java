@@ -4,13 +4,10 @@
  */
 package batallas;
 
-import BBDD.CargarDatosBBDD;
-import componentes.Componentes;
 import componentes.personas.General;
 import BBDD.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -73,7 +70,7 @@ public class Batalla {
                     Ejercito ganador = getGanador();
                     LocalDate fecha = LocalDate.now();
                     General generalGanador = ganador.obtenerGeneral();
-                    String[] registrarGanador = { generalGanador.getNombre() ,  ganador.getNombre() , fecha.toString()};
+                    String[] registrarGanador = { generalGanador.getNombre() , String.valueOf(generalGanador.getSalud()),  ganador.getNombre() , fecha.toString()};
                     guardarGanadores.add(registrarGanador);
                   /*  System.out.println("Lista de ganadores:");
                     for (String[] registro : guardarGanadores) {
@@ -82,15 +79,16 @@ public class Batalla {
                     if (getGanador() == ejercito1) {
                         System.out.println(System.lineSeparator() + Message.EJERCITO_GANADOR +
                                 ejercito1.getNombre());
-                        System.out.println("El general del ejército " + ejercito1.getNombre() + " es: " + generalGanador.getNombre());
+                        System.out.println("El general del ejército " + ejercito1.getNombre() + " es: " + generalGanador.getNombre() );
+                        System.out.println("Tiene una salud de :" + generalGanador.getSalud());
                         System.out.println("En el  dia " + fecha.toString());
-                        CargarScore subirScore = new CargarScore(conectarBD());
+                        TopScore subirScore = new TopScore(conectarBD());
                         subirScore.cargarTopScore(guardarGanadores);
                     } else {
                         System.out.println(System.lineSeparator() + Message.EJERCITO_GANADOR +
                                 ejercito2.getNombre());
-                        System.out.println("El general del ejército " + ejercito2.getNombre() + " es: " + generalGanador.getNombre());
-                        CargarScore subirScore = new CargarScore(conectarBD());
+                        System.out.println("El general del ejército " + ejercito2.getNombre() + " es: " + generalGanador.getNombre() +"con una salud de:" + generalGanador.getSalud());
+                        TopScore subirScore = new TopScore(conectarBD());
                         subirScore.cargarTopScore(guardarGanadores);
 
                     }

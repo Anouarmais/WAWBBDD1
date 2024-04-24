@@ -17,16 +17,15 @@ public class TraerDatosBBDD {
 
     public static List<General> getGeneralesBBDD() {
         return generalesBBDD;
+
     }
 
     public static void setGeneralesBBDD(List<General> generalesBBDD) {
         TraerDatosBBDD.generalesBBDD = generalesBBDD;
     }
-
     static List<General> generalesBBDD = new ArrayList<>();
-    public TraerDatosBBDD(Connection traerdesdeBBDD) {
-        TraerDatosBBDD.traerdesdeBBDD = traerdesdeBBDD;
-    }
+
+    public TraerDatosBBDD(Connection traerdesdeBBDD) {TraerDatosBBDD.traerdesdeBBDD = traerdesdeBBDD;}
 
     public static List<General> obtenerGenerales() {
 

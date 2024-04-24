@@ -24,7 +24,7 @@ public class ConectarBBDD {
             connection = DriverManager.getConnection(
                     "jdbc:mysql://" + host + ":" + port + "/" + bd, USUARIOS, pass);
             connectOk = true;
-        //            System.out.println(connectOk);
+            //System.out.println(connectOk);
         } catch (SQLException | ClassNotFoundException e) {
             connectOk = false;
             System.out.println(e.getMessage());
