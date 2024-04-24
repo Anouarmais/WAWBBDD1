@@ -20,7 +20,7 @@ import java.util.TimeZone;
 import static BBDD.ConectarBBDD.conectarBD;
 
 /**
- * @author danie
+ * @author Anouar
  */
 public class MEDAC_ProgramacionBatalla {
 
