@@ -16,20 +16,25 @@ public class TraerPuntuacion {
     // Método para obtener las puntuaciones de la base de datos y mostrarlas.
     public LinkedList<TraerPuntuacion> obtenerPuntuaciones() {
         // Consulta SQL para obtener las puntuaciones ordenadas por salud de manera descendente.
-        String TRAERPUNTUACIONES = "SELECT NOMBRE, SALUD, EJERCITO, FECHA FROM TOPSCORE ORDER BY SALUD DESC";
+        String TRAERPUNTUACIONES = "SELECT General, SALUD, EJERCITO, FECHA FROM TOPSCORE ORDER BY SALUD DESC";
         try {
+            System.out.println();
+            System.out.println("Los mejores generales de la historia: ");
+            System.out.println();
             // Preparar la declaración SQL para obtener las puntuaciones de la base de datos.
             PreparedStatement statement = connection.prepareStatement(TRAERPUNTUACIONES);
             ResultSet resultSet = statement.executeQuery();
 
             // Iterar sobre el resultado y mostrar las puntuaciones.
             while (resultSet.next()) {
-                String nombre = resultSet.getString("NOMBRE");
+                String nombre = resultSet.getString("GENERAL");
                 int salud = resultSet.getInt("SALUD");
                 String ejercito = resultSet.getString("EJERCITO");
                 LocalDate fecha = resultSet.getDate("FECHA").toLocalDate();
+
                 System.out.println("Nombre: " + nombre + ", Salud: " + salud + ", Ejercito: " + ejercito +
                         ", Fecha: " + fecha);
+                System.out.println();
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al obtener los datos de la tabla topscore", e); // Lanzar una excepción en caso de error.

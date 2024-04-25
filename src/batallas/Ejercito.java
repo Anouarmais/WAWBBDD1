@@ -5,6 +5,7 @@
 package batallas;
 
 import BBDD.CargarDatosBBDD;
+import BBDD.ConectarBBDD;
 import BBDD.TraerDatosBBDD;
 import BBDD.TraerPuntuacion;
 import componentes.Componentes;
@@ -30,8 +31,7 @@ import static BBDD.ConectarBBDD.conectarBD;
 /**
  * <p>Clase que representa un ejército.</p>
  *
- * @author Daniel Ojados
- * @author Daniel Romero
+ * @author Anouar
  * @version 1.0
  */
 public class Ejercito {
@@ -99,7 +99,7 @@ public class Ejercito {
         Scanner scanner = new Scanner(System.in);
         String opcion;
 
-        String[] opciones = {"Cargar generales en la base de datos", "Crear ID para ejército", "Añadir infantería",
+        String[] opciones = {"Comprobar si hay generales en la base de datos","Cargar generales en la base de datos", "Crear ID para ejército", "Añadir infantería",
                 "Añadir caballería", "Añadir general", "Añadir elefante", "Añadir tigre",
                 "Consultar saldo ejército", "Eliminar unidad","topscore", "Salir y confirmar"};
 
@@ -114,6 +114,10 @@ public class Ejercito {
 
             switch (opcion) {
                 case "a":
+                    String mensaje = ConectarBBDD.tablaInformacion();
+                    System.out.println(mensaje);
+                    break;
+                case "b":
 
                     System.out.println("Selecciona el fichero Generales.txt que esta en la carpeta del proyecto.");
                     JFileChooser fileChooser = new JFileChooser();
@@ -155,7 +159,7 @@ public class Ejercito {
 
 
                     break;
-                case "b":
+                case "c":
                     if (nombre.isBlank() || nombre.isEmpty()) {
                         System.out.print(System.lineSeparator() + "Asignale un nombre a tu ejército: ");
 
@@ -169,7 +173,7 @@ public class Ejercito {
                     }
 
                     break;
-                case "c":
+                case "d":
 
                     try {
                         if ((saldoPeso + Infanteria.PESO_INFANTERIA) < MAX_PESO) {
@@ -189,7 +193,7 @@ public class Ejercito {
                     }
 
                     break;
-                case "d":
+                case "e":
 
                     try {
                         if ((saldoPeso + Caballeria.PESO_CABALLERIA) < MAX_PESO) {
@@ -209,7 +213,7 @@ public class Ejercito {
                     }
 
                     break;
-                case "e":
+                case "f":
                     CargarDatosBBDD cargador = new CargarDatosBBDD(conectarBD());
                     List<General> generalesList = TraerDatosBBDD.obtenerGenerales();
                     for (General general : generalesList) {
@@ -236,7 +240,7 @@ public class Ejercito {
                     }
 
                     break;
-                case "f":
+                case "g":
                     try {
                         if (((saldoPeso + Elefante.PESO_ELEFANTE) < MAX_PESO) && contadorAnimales < MAX_ANIMALES) {
                             adicionarUnidad(new Elefante());
@@ -258,7 +262,7 @@ public class Ejercito {
                     }
 
                     break;
-                case "g":
+                case "h":
                     try {
                         if ((saldoPeso + Tigre.PESO_TIGRE) < MAX_PESO && contadorAnimales < MAX_ANIMALES) {
                             adicionarUnidad(new Tigre());
@@ -278,10 +282,10 @@ public class Ejercito {
                     }
 
                     break;
-                case "h":
+                case "i":
                     System.out.println(Message.SALDO_ACTUAL + getSaldoPeso());
                     break;
-                case "i":
+                case "j":
                     try {
                         if (!unidades.isEmpty()) {
                             System.out.println("Eliminar unidad del ejército: ");
@@ -299,13 +303,13 @@ public class Ejercito {
                     }
 
                     break;
-                case "j":
+                case "k":
                     TraerPuntuacion traerPuntuacion = new TraerPuntuacion();
                     traerPuntuacion.obtenerPuntuaciones();
 
 
                     break;
-                case "k":
+                case "l":
                     try {
                         if (saldoPeso >= MIN_UNIDADES && hayGeneral) {
                             System.out.println(System.lineSeparator() + "Su Ejército está formado por: "
@@ -337,7 +341,7 @@ public class Ejercito {
                     System.out.println(Message.OPCION_INAVLIDA);
                     break;
             }
-        } while (!opcion.equals("k"));
+        } while (!opcion.equals("l"));
     }
 
     private void imprimirInfo(Componentes componente) {

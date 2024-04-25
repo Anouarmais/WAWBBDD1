@@ -22,7 +22,7 @@ public class TopScore {
 
     // Método para cargar registros en la tabla topscore de la base de datos.
     public void cargarTopScore(List<String[]> registros) {
-        String sql = "INSERT INTO topscore (Nombre, Salud, Ejercito, Fecha) VALUES (?, ? ,?, ?)"; // Consulta SQL para insertar datos en la tabla topscore.
+        String sql = "INSERT INTO topscore (General, Salud, Ejercito, Fecha) VALUES (?, ? ,?, ?)"; // Consulta SQL para insertar datos en la tabla topscore.
 
         try {
             PreparedStatement statement = this.subirScore.prepareStatement(sql); // Preparar la declaración SQL para la inserción.
